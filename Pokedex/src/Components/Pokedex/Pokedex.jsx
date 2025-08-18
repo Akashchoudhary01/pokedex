@@ -4,9 +4,14 @@ import Search from '../Search/Search'
 export default function Pokedex() {
   return (
     <div>
-        <h1 className='text-center text-3xl tracking-wider font-[Poppins  text-black m-6 '>Pokedex</h1>
+       <h1 className="text-center text-5xl  font-extrabold font-[Poppins] tracking-widest bg-gradient-to-r from-black via-purple-500 to-pink-100 bg-clip-text text-transparent drop-shadow-lg m-8">
+        Pokedex
+      </h1>
         <Search/>
+
+        
       
     </div>
   )
 }
+
