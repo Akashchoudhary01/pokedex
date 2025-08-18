@@ -6,12 +6,20 @@ export default function PokemonList() {
   const [pokemonList, setPokemonList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const POKEDEX_URL = "https://pokeapi.co/api/v2/pokemon"
+  const [ POKEDEX_URL , setPOKEDEX_URL] = useState("https://pokeapi.co/api/v2/pokemon");
+
+  const [nextUrl , setNextUrl] = useState('');
+  const [prevUrl , setPrevUrl] = useState('');
+
+  
 
   async function downlodePokemon() {
     const response = await axios.get(POKEDEX_URL); //This downlodes list of 20 pokemons
 
     const pokemonResult = response.data.results;  //we get array of pokemons from result
+
+setNextUrl(response.data.next);
+setPrevUrl(response.data.previous);
    
 
     //iterating over array of pokemon and using their url  to create an array of promises
@@ -26,6 +34,7 @@ export default function PokemonList() {
 
      //now iterate through data of each pokrmon and extract {id , name , image , types}
     const PokelistResult =  pokemonData.map((pokeData) => {
+      setIsLoading(false);
         const pokemon = pokeData.data;
         return {
           id: pokemon.id,
@@ -45,7 +54,7 @@ export default function PokemonList() {
 
   useEffect(() => {
     downlodePokemon();
-  }, []);
+  }, [POKEDEX_URL ]);
 
   return (
     <div className=" mx-auto mt-10 p-6 font-poppins">
@@ -54,20 +63,31 @@ export default function PokemonList() {
     {isLoading
       ? "Loading ....."
       : pokemonList.map((p) => (
-          <Pokemon key={p.id} name={p.name} image={p.image} />
+          <Pokemon key={p.id} name={p.name} image={p.image} id = {p.id} />
         ))}
   </div>
 
   {/* Pagination buttons */}
   <div className="flex justify-center gap-6 mt-8">
-    <button className="px-4 py-2 bg-gray-200 rounded-lg shadow hover:bg-gray-300">
-      Previous
-    </button>
-    <button className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600">
-      Next
-    </button>
-  </div>
-  {/* // */}
+  <button
+    onClick={() => setPOKEDEX_URL(prevUrl)}
+    className="px-4 py-2 text-black rounded-lg shadow outline-1 outline-black"
+    disabled={!prevUrl}
+  >
+    Previous
+  </button>
+  <button
+    onClick={() => setPOKEDEX_URL(nextUrl)}
+    className="px-4 py-2 text-black rounded-lg shadow outline-1 outline-black"
+    disabled={!nextUrl}
+  >
+    Next
+  </button>
+</div>
+
+
+  {/* /Footer/ */}
+
    <h4 className=" fixed bottom-3 right-3 text-md text-white">
   Made with 🖤 by{" "}
   <a

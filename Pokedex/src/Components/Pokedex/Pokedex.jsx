@@ -1,6 +1,8 @@
 import React from 'react'
 import Search from '../Search/Search'
 
+import PokemonList from '../PokemonList/PokemonList'
+
 export default function Pokedex() {
   return (
     <div>
@@ -8,6 +10,7 @@ export default function Pokedex() {
         Pokedex
       </h1>
         <Search/>
+        <PokemonList/>
 
         
       
