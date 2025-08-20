@@ -2,7 +2,7 @@ import Pokemon from "../Pokemon/Pokemon";
 import usePokemonList from "../../Hooks/usePokemonList";
 
 export default function PokemonList() {
-  const {pokemonListState , setpokemonListState} = usePokemonList()
+  const {pokemonListState , setpokemonListState} = usePokemonList();
 
 
   return (
