@@ -14,22 +14,22 @@ export default function PokemonDetails() {
 
   if (!pokemon) {
     return (
-      <div className="h-screen flex justify-center items-center text-white text-2xl font-semibold">
+      <div className="min-h-screen flex justify-center items-center text-white text-2xl font-semibold">
         Loading...
       </div>
     );
   }
 
   return (
-    <div className="h-screen w-screen bg-gradient-to-r from-black via-purple-600 to-pink-600 flex flex-col justify-center items-center font-[Poppins] text-white overflow-hidden">
+    <div className="min-h-screen w-screen bg-gradient-to-r from-black via-purple-600 to-pink-600 flex flex-col items-center font-[Poppins] text-white pb-20">
       {/* Title */}
-      <h1 className="text-5xl font-extralight text-black tracking-[8px] drop-shadow-lg mb-4">
+      <h1 className="text-5xl font-extralight text-black tracking-[8px] drop-shadow-lg mt-10 mb-4">
         Pokedex
       </h1>
       <hr className="w-2/3 h-0.5 bg-black rounded mb-6 border-0" />
 
       {/* Card */}
-      <div className="bg-white text-black rounded-3xl shadow-xl p-8 flex mb-40 flex-col items-center w-[350px]">
+      <div className="bg-white text-black rounded-3xl shadow-xl p-8 flex flex-col items-center w-[350px] mb-10">
         <img
           src={pokemon.image}
           alt={pokemon.name}
