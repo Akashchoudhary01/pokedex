@@ -2,7 +2,7 @@ import Pokemon from "../Pokemon/Pokemon";
 import usePokemonList from "../../Hooks/usePokemonList";
 
 export default function PokemonList() {
-  const {pokemonListState , setpokemonListState} = usePokemonList();
+  const {pokemonListState , setpokemonListState} = usePokemonList(`https://pokeapi.co/api/v2/pokemon` , false);
 
 
   return (
@@ -40,9 +40,13 @@ export default function PokemonList() {
           className="px-4 py-2 text-black rounded-lg shadow outline-1 outline-black"
           disabled={!pokemonListState.nextUrl}
         >
+          
           Next
         </button>
       </div>
     </div>
   );
 }
+
+
+
