@@ -1,32 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams, Link } from "react-router-dom";
-import axios from "axios";
+import usePokemonDetails from "../../Hooks/usePokemonDetails";
 import usePokemonList from "../../Hooks/usePokemonList";
 
 export default function PokemonDetails() {
-  const [pokemon, setPokemon] = useState(null);
   const { id } = useParams();
+  const pokemon = usePokemonDetails(id);
 
-  async function downloadPokemon() {
-    const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
-    setPokemon({
-      name: response.data.name,
-      image: response.data.sprites.other.dream_world.front_default,
-      weight: response.data.weight,
-      types: response.data.types.map((t) => t.type.name),
-    });
-  }
-
-  //more same type pokemon
   const { pokemonListState } = usePokemonList(
-    `https://pokeapi.co/api/v2/type/${pokemon.types ? pokemon.types[0] : 'fire' }`,
+    pokemon?.types ? `https://pokeapi.co/api/v2/type/${pokemon.types[0]}` : null,
     true
   );
-
-  useEffect(() => {
-    downloadPokemon();
-    console.log("list :  ", pokemonListState);
-  }, [id]);
 
   if (!pokemon) {
     return (
@@ -39,13 +23,13 @@ export default function PokemonDetails() {
   return (
     <div className="h-screen w-screen bg-gradient-to-r from-black via-purple-600 to-pink-600 flex flex-col justify-center items-center font-[Poppins] text-white overflow-hidden">
       {/* Title */}
-      <h1 className="text-5xl font-extralight text-black tracking-[8px]  drop-shadow-lg mb-4">
+      <h1 className="text-5xl font-extralight text-black tracking-[8px] drop-shadow-lg mb-4">
         Pokedex
       </h1>
       <hr className="w-2/3 h-0.5 bg-black rounded mb-6 border-0" />
 
       {/* Card */}
-      <div className="bg-white text-black rounded-3xl shadow-xl p-8 flex flex-col items-center w-[350px]">
+      <div className="bg-white text-black rounded-3xl shadow-xl p-8 flex mb-40 flex-col items-center w-[350px]">
         <img
           src={pokemon.image}
           alt={pokemon.name}
@@ -73,13 +57,18 @@ export default function PokemonDetails() {
           🔙 Back
         </Link>
 
+        {/* More Pokémons of same type */}
         {pokemon.types && (
-          <div>
-            More {pokemon.type[0]} type pokemon
-            <ul>
+          <div className="mt-6 text-center">
+            <h3 className="font-bold mb-2">
+              More {pokemon.types[0]} type Pokémon:
+            </h3>
+            <ul className="space-y-1">
               {pokemonListState.pokemonList &&
                 pokemonListState.pokemonList.map((p) => (
-                  <li key={p.pokemon.url}>{p.pokemon.name}</li>
+                  <li key={p.pokemon.name} className="capitalize">
+                    {p.pokemon.name}
+                  </li>
                 ))}
             </ul>
           </div>

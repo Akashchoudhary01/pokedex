@@ -2,8 +2,10 @@ import Pokemon from "../Pokemon/Pokemon";
 import usePokemonList from "../../Hooks/usePokemonList";
 
 export default function PokemonList() {
-  const {pokemonListState , setpokemonListState} = usePokemonList(`https://pokeapi.co/api/v2/pokemon` , false);
-
+  const { pokemonListState, setpokemonListState } = usePokemonList(
+    `https://pokeapi.co/api/v2/pokemon`,
+    false
+  );
 
   return (
     <div className="mx-auto mt-10 p-6 font-poppins">
@@ -40,13 +42,9 @@ export default function PokemonList() {
           className="px-4 py-2 text-black rounded-lg shadow outline-1 outline-black"
           disabled={!pokemonListState.nextUrl}
         >
-          
           Next
         </button>
       </div>
     </div>
   );
 }
-
-
-
