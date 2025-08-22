@@ -14,6 +14,7 @@ export default function Pokedex() {
       {/* Search box */}
       <Search updateSearchTerm={setSearchTerm} />
 
+
       {/* Pokémon list (filtered) */}
       <PokemonList searchTerm={searchTerm} />
     </div>
